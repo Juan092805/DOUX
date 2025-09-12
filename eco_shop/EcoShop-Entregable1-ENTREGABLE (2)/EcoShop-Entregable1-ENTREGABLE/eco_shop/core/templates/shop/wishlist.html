@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="shop-container">
+  <h1>Mi Wishlist</h1>
+  <div class="grid">
+    {% for item in items %}
+      <div class="card">
+        <a href="{% url 'product_detail' item.product.slug %}">
+          <div class="card-img">
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+          </div>
+        </a>
+        <div class="card-body">
+          <h3 class="name">{{ item.product.name }}</h3>
+          <p class="price">${{ item.product.price|floatformat:0 }} COP</p>
+
+          <div class="card-actions">
+            <!-- Quitar de wishlist -->
+            <a href="{% url 'wishlist_toggle' item.product.id %}" class="btn-wishlist" title="Quitar de Wishlist">
+              <i class="fa fa-heart"></i>
+            </a>
+            <!-- Agregar al carrito -->
+            <a href="{% url 'cart_add' item.product.id %}" class="btn-cart" title="Añadir al carrito">
+              <i class="fa fa-bag-shopping"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No tienes productos en tu wishlist.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

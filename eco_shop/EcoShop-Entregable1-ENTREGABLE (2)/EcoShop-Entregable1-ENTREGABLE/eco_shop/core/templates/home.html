@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="hero">
+</section>
+
+<section class="products">
+  <div class="grid">
+    {% for p in products %}
+      <a class="card" href="{% url 'product_detail' p.slug %}">
+        <div class="card-img">
+          {% if p.image %}
+            <img src="{{ p.image.url }}" alt="{{ p.name }}">
+          {% else %}
+            <img src="{% static 'img/placeholder.png' %}" alt="Sin imagen">
+          {% endif %}
+        </div>
+        <div class="card-body">
+          <p class="name">{{ p.name }}</p>
+          <p class="price">${{ p.price }}</p>
+        </div>
+      </a>
+    {% empty %}
+      <p style="grid-column: 1 / -1; text-align:center;">
+        No hay productos disponibles todavía.
+      </p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

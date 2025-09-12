@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Mis Pedidos</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Pedido</th>
+      <th>Fecha</th>
+      <th>Estado</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <td>#{{ order.id }}</td>
+      <td>{{ order.created_at|date:"d/m/Y H:i" }}</td>
+      <td>{{ order.status }}</td>
+      <td>
+        ${{ order.items.all|map:"line_total"|sum }}
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">Aún no tienes pedidos.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

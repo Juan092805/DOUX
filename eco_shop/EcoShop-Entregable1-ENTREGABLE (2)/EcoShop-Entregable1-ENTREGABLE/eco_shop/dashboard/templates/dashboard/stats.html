@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Estadísticas</h1>
+
+<h2>Ventas por mes</h2>
+<table>
+  <tr><th>Mes</th><th>Total</th></tr>
+  {% for r in ventas_por_mes %}
+  <tr><td>{{ r.month|date:"Y-m" }}</td><td>${{ r.total|floatformat:0 }}</td></tr>
+  {% empty %}<tr><td colspan="2">Sin datos</td></tr>{% endfor %}
+</table>
+
+<h2>Productos con bajo stock (≤ 5)</h2>
+<table>
+  <tr><th>Producto</th><th>Stock</th></tr>
+  {% for p in bajo_stock %}
+  <tr><td>{{ p.name }}</td><td>{{ p.stock }}</td></tr>
+  {% empty %}<tr><td colspan="2">OK</td></tr>{% endfor %}
+</table>
+
+<h2>Clientes más activos</h2>
+<table>
+  <tr><th>Usuario</th><th>Pedidos</th></tr>
+  {% for c in clientes_top %}
+  <tr><td>{{ c.user__username }}</td><td>{{ c.cnt }}</td></tr>
+  {% empty %}<tr><td colspan="2">Sin pedidos</td></tr>{% endfor %}
+</table>
+{% endblock %}

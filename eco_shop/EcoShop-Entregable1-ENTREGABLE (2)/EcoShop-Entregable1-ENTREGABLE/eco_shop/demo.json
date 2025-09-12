@@ -1,0 +1,38 @@
+[
+  {
+    "model": "core.category",
+    "pk": 1,
+    "fields": {
+      "name": "Hogar"
+    }
+  },
+  {
+    "model": "core.category",
+    "pk": 2,
+    "fields": {
+      "name": "Ropa"
+    }
+  },
+  {
+    "model": "core.product",
+    "pk": 1,
+    "fields": {
+      "name": "Bolsa reutilizable",
+      "description": "Hecha de algod\u00f3n org\u00e1nico",
+      "price": "20.00",
+      "stock": 50,
+      "category": 1
+    }
+  },
+  {
+    "model": "core.product",
+    "pk": 2,
+    "fields": {
+      "name": "Camisa reciclada",
+      "description": "Poli\u00e9ster reciclado",
+      "price": "35.00",
+      "stock": 20,
+      "category": 2
+    }
+  }
+]

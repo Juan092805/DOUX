@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %} | Mi Cuenta{% endblock %}
+{% block content %}
+<h2>Tu Cuenta</h2>
+<p>Aquí puedes ver todos tus pedidos y gestionar tu información.</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Pedido</th>
+      <th>Fecha</th>
+      <th>Estado del pago</th>
+      <th>Estado de preparación</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+      <tr>
+        <td>#{{ order.id }}</td>
+        <td>{{ order.created_at|date:"d \\d\\e F \\d\\e Y" }}</td>
+        <td>{{ order.payment_status|default:"Pendiente" }}</td>
+        <td>{{ order.preparation_status|default:"En preparación" }}</td>
+        <td>${{ order.total }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="5">Aún no tienes pedidos.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

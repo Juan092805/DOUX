@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="shop-container">
+  <!-- Filtros por categoría -->
+  <div class="category-filters">
+    <h3>Filtrar por categoría:</h3>
+    <div class="filter-buttons">
+      <a href="{% url 'shop' %}" class="filter-btn {% if not selected_category %}active{% endif %}">
+        Todas
+      </a>
+      {% for category in categories %}
+        <a href="{% url 'shop' %}?category={{ category.id }}" 
+           class="filter-btn {% if selected_category == category.id|stringformat:'s' %}active{% endif %}">
+          {{ category.name }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <div class="grid">
+    {% for product in products %}
+      <div class="card">
+        <a href="{% url 'product_detail' product.slug %}">
+          <div class="card-img">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+          </div>
+        </a>
+        <div class="card-body">
+          <h3 class="name">{{ product.name }}</h3>
+          <p class="price">${{ product.price }} COP</p>
+          <div class="card-actions">
+            <!-- Wishlist -->
+            <a href="{% url 'wishlist_toggle' product.id %}" class="btn-wishlist">
+              <i class="fa fa-heart"></i>
+            </a>
+            <!-- Carrito -->
+            <a href="{% url 'cart_add' product.id %}" class="btn-cart">
+              <i class="fa fa-bag-shopping"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No hay productos disponibles.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
